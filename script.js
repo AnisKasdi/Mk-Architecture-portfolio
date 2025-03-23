@@ -12,19 +12,34 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Tabs for Skills/Experience/Education
+// Wave Panels
 const tabLinks = document.querySelectorAll('.tab-link');
-const tabContents = document.querySelectorAll('.tab-content');
+const waveContents = document.querySelectorAll('.wave-content');
+
+// Masquer toutes les sections sauf celle active au chargement
+waveContents.forEach(content => {
+    if (!content.classList.contains('active')) {
+        content.style.display = 'none';
+    } else {
+        content.style.display = 'flex';
+    }
+});
 
 tabLinks.forEach(link => {
     link.addEventListener('click', () => {
-        // Remove active class from all links and contents
+        // Retirer la classe active de tous les onglets et sections
         tabLinks.forEach(l => l.classList.remove('active'));
-        tabContents.forEach(content => content.classList.remove('active'));
+        waveContents.forEach(content => {
+            content.classList.remove('active');
+            content.style.display = 'none';
+        });
 
-        // Add active class to clicked link and corresponding content
+        // Ajouter la classe active à l'onglet cliqué et afficher la section correspondante
         link.classList.add('active');
         const tabId = link.getAttribute('data-tab');
-        document.getElementById(tabId).classList.add('active');
+        const activeContent = document.getElementById(tabId);
+        activeContent.classList.add('active');
+        activeContent.style.display = 'flex';
     });
 });
+
